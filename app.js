@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const compression = require('compression');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -17,8 +18,12 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const viewRouter = require('./routes/viewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
+const cors = require('cors');
 
 const app = express();
+
+app.enable('trust proxy');
+app.use(compression());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
@@ -27,6 +32,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(`${__dirname}/public`));
 
 // 1) GLOBAL MIDDLEWARES
+// Implement CORS
+app.use(cors());
+app.options('*', cors());
+
 // Set security HTTP headers
 app.use(helmet());
 

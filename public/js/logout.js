@@ -15,7 +15,6 @@ export const logout = async () => {
       }, 500);
     }
   } catch (err) {
-    console.log(err.response);
     showAlert('error', 'Error logging out! Try again.');
   }
 };
