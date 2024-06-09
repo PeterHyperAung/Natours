@@ -4,6 +4,7 @@ import { logout } from './logout';
 import { displayMap } from './mapbox';
 import { signup } from './signup';
 import { updateSettings } from './updateSettings';
+import { showAlert } from './alerts';
 
 // Dom Elements
 const mapBox = document.getElementById('map');
@@ -68,3 +69,6 @@ if (userPasswordForm)
     document.getElementById('password-confirm').value = '';
     document.getElementById('password-current').value = '';
   });
+
+const alertMessage = document.querySelector('body').dataset.alert;
+if (alert) showAlert('success', alertMessage);
